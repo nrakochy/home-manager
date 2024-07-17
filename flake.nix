@@ -11,24 +11,24 @@
 
   outputs = { nixpkgs, home-manager, flake-utils, ... }:
 
-  flake-utils.lib.eachDefaultSystem (system:
-     let pkgs = nixpkgs.legacyPackages.${system}; in
-     { 
-       packages.homeConfigurations = {
-         workMac = home-manager.lib.homeManagerConfiguration {
-           inherit pkgs;
+    flake-utils.lib.eachDefaultSystem (system:
+      let pkgs = nixpkgs.legacyPackages.${system}; in
+      {
+        packages.homeConfigurations = {
+          workMac = home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
 
-           modules = [
-             ./home.nix
-             ./packages/mac.nix
-           ];
+            modules = [
+              ./home.nix
+              ./packages/mac.nix
+            ];
 
-           extraSpecialArgs = {
-             username = "nrakochy";
-             homeDirectory = "/Users/nrakochy";
-             outputName = "workMac";
-           };
-         };
-       };
-    });
+            extraSpecialArgs = {
+              username = "nrakochy";
+              homeDirectory = "/Users/nrakochy";
+              outputName = "workMac";
+            };
+          };
+        };
+      });
 }
