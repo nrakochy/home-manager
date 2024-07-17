@@ -37,7 +37,6 @@
     gping
     speedtest-cli
     dog
-    ngrok
 
     # Lang Specific
     stylua
