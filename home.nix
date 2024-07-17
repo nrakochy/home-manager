@@ -6,6 +6,5 @@
   nixpkgs.config = {
     allowUnfree = true;
   };
-  fonts.fontConfig.enable = true;
 }
 
