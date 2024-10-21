@@ -29,6 +29,20 @@
               outputName = "workMac";
             };
           };
+          workLinux = home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+
+            modules = [
+              ./home.nix
+              ./packages/common.nix
+            ];
+
+            extraSpecialArgs = {
+              username = "nrakochy";
+              homeDirectory = "/Users/nrakochy";
+              outputName = "workLinux";
+            };
+          };
         };
       });
 }
