@@ -32,6 +32,7 @@
     # Process Handling
     btop
     killall
+    bottom
 
     # Networking
     gping
