@@ -35,9 +35,10 @@
     bottom
 
     # Networking
-    gping
-    speedtest-cli
     dog
+    gping
+    sniffnet
+    speedtest-cli
 
     # Lang Specific
     stylua
