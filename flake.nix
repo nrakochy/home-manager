@@ -10,7 +10,6 @@
   };
 
   outputs = { nixpkgs, home-manager, flake-utils, ... }:
-
     flake-utils.lib.eachDefaultSystem (system:
       let pkgs = nixpkgs.legacyPackages.${system}; in
       {
@@ -21,6 +20,7 @@
             modules = [
               ./home.nix
               ./packages/mac.nix
+              ./packages/common.nix
             ];
 
             extraSpecialArgs = {

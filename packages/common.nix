@@ -7,11 +7,14 @@
     vscode
     obsidian
 
+    # containers
+    colima
+    amazon-ecr-credential-helper
+
     # Shell
     neovim
     tmux
     zsh
-    oh-my-zsh
     zsh-autocomplete
     zsh-autosuggestions
     zsh-syntax-highlighting
@@ -20,14 +23,15 @@
     devenv
 
     # File Ops Tools
-    tree
-    git
-    unzip
-    ripgrep
-    fzf
     bat
-    entr
     duf
+    entr
+    fzf
+    git
+    gh
+    ripgrep
+    tree
+    unzip
 
     # Process Handling
     btop
@@ -37,13 +41,16 @@
     # Networking
     dog
     gping
-    sniffnet
+    kubectl
     speedtest-cli
+    lsof
+    nmap
 
     # Lang Specific
     stylua
     gopls
     go
+    graphviz
     bun
     deno
     cargo
@@ -53,10 +60,6 @@
     vscode-langservers-extracted
     emmet-language-server
     tailwindcss-language-server
-
-    # Networking
-    lsof
-    nmap
 
     # Nix-Related
     nix-prefetch-git
