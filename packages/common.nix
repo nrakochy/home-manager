@@ -8,8 +8,10 @@
     obsidian
 
     # containers
-    colima
     amazon-ecr-credential-helper
+    colima
+    docker
+    docker-compose
 
     # Shell
     neovim
@@ -41,10 +43,22 @@
     # Networking
     dog
     gping
-    kubectl
     speedtest-cli
     lsof
     nmap
+
+    # kubernetes
+    k9s
+    kind
+    kubectl
+    kubectx # kubectl ns switcheroo
+    kube-linter
+    kube-score
+    popeye 
+    tilt # hot-reloading
+    stern # multi-pod color + aggregator
+
+
 
     # Lang Specific
     stylua
