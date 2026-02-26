@@ -1,4 +1,4 @@
-## Home manager
+# Home manager
 
 1. Install nix ([source](https://determinate.systems/oss/))
 
@@ -7,6 +7,11 @@ curl --proto '=https' --tlsv1.2 -sSf -L \
   https://install.determinate.systems/nix | sh -s -- install
 ```
 
-2. `git clone` to `~/.config`
-3. `nix run home-manager -- switch --flake '.#yourOutputMachineName' -b bak`
-4. :moneybag:
+1. `git clone` to `~/.config`
+2.
+
+```bash
+nix run home-manager -- switch --flake '.#workMac' -b bak
+```
+
+1. :moneybag:

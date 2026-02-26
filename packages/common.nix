@@ -86,6 +86,5 @@
     ponysay
     gh
     typst
-    (nerdfonts.override { fonts = [ "BigBlueTerminal" "JetBrainsMono" ]; })
   ];
 }
