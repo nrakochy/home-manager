@@ -48,6 +48,8 @@
     nmap
 
     # kubernetes
+    helmfile-wrapped
+    kubernetes-helm
     k9s
     kind
     kubectl
@@ -55,10 +57,9 @@
     kube-linter
     kube-score
     popeye 
+    terraform 
     tilt # hot-reloading
     stern # multi-pod color + aggregator
-
-
 
     # Lang Specific
     stylua
