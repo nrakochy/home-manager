@@ -13,6 +13,9 @@
     docker
     docker-compose
 
+    #ci
+    circleci-cli
+
     # Shell
     neovim
     tmux
@@ -49,7 +52,15 @@
 
     # kubernetes
     helmfile-wrapped
-    kubernetes-helm
+
+    (wrapHelm kubernetes-helm {
+        plugins = with pkgs.kubernetes-helmPlugins; [
+          helm-secrets
+          helm-diff
+          helm-s3
+        ];
+      })
+
     k9s
     kind
     kubectl
@@ -75,6 +86,7 @@
     vscode-langservers-extracted
     emmet-language-server
     tailwindcss-language-server
+    tsx
 
     # Nix-Related
     nix-prefetch-git
