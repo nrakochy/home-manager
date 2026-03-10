@@ -65,6 +65,7 @@
     speedtest-cli
     lsof
     nmap
+    grpcurl
 
     # kubernetes
     helmfile-wrapped
@@ -117,6 +118,6 @@
   programs.starship = {
     enable = true;
     # Configuration written to ~/.config/starship.toml
-    #settings = {};
+    settings = {};
   };
 }
