@@ -2,7 +2,16 @@
 { pkgs, ... }:
 
 {
+  fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
+    nerd-fonts.fira-mono
+    nerd-fonts.fira-code
+    starship
+
+    # AI
+    opencode
+    dolt
+
     # GUI Applications
     vscode
     obsidian
@@ -15,6 +24,13 @@
 
     #ci
     circleci-cli
+
+    # gcloud
+    google-cloud-sdk
+
+
+    # sourcegraph
+    src-cli
 
     # Shell
     neovim
@@ -78,7 +94,6 @@
     go
     graphviz
     bun
-    deno
     cargo
     pipx
     python3
@@ -99,4 +114,9 @@
     gh
     typst
   ];
+  programs.starship = {
+    enable = true;
+    # Configuration written to ~/.config/starship.toml
+    #settings = {};
+  };
 }
