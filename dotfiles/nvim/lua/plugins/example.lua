@@ -144,14 +144,6 @@ return {
       },
     },
     opts = {
-      extensions = {
-        fzf = {
-          fuzzy = false,
-          override_generic_sorter = true,
-          override_file_sorter = true,
-          case_mode = "smart_case",
-        },
-      },
       defaults = {
         layout_strategy = "horizontal",
         layout_config = { prompt_position = "top" },
@@ -184,6 +176,22 @@ return {
         },
       },
     },
+  },
+  {
+    "nvim-telescope/telescope-fzf-native.nvim",
+    config = function()
+      require("telescope").setup({
+        extensions = {
+          fzf = {
+            fuzzy = false,
+            override_generic_sorter = true,
+            override_file_sorter = true,
+            case_mode = "smart_case",
+          },
+        },
+      })
+      require("telescope").load_extension("fzf")
+    end,
   },
   {
     "neovim/nvim-lspconfig",

@@ -37,6 +37,10 @@ add-zsh-hook chpwd source_env
 # Starship prompt (must init before fzf to avoid ZLE widget recursion)
 eval "$(starship init zsh)"
 
+# Autosuggestions (fish-style ghost text from history)
+[[ -f ~/.nix-profile/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && \
+  source ~/.nix-profile/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 # fzf
 source <(fzf --zsh)
 
