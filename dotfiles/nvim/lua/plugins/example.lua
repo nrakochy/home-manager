@@ -110,7 +110,7 @@ return {
       {
         "<leader>sg",
         function()
-          require("telescope.builtin").live_grep()
+          require("telescope.builtin").live_grep({ debounce = 200 })
         end,
         { desc = "[S]earch by [G]rep" },
       },
