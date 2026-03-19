@@ -117,6 +117,10 @@ vim.keymap.set("n", "<leader>N", ":split %:h/", { desc = "Init new filepath rela
 vim.keymap.set("n", "<leader>Pt", "<cmd>Lspsaga peek_type_definition<CR>", { desc = "Peek type definition" })
 vim.keymap.set("n", "<leader>Pd", "<cmd>Lspsaga peek_definition<CR>", { desc = "Peek type definition" })
 
+vim.keymap.set("n", "<leader>cp", function()
+  vim.fn.setreg("+", vim.fn.expand("%:."))
+end, { desc = "Copy relative file path" })
+
 vim.keymap.set("n", "<C-j>", ":NvimTmuxNavigateDown<CR>", { silent = true })
 vim.keymap.set("n", "<C-k>", ":NvimTmuxNavigateUp<CR>", { silent = true })
 vim.keymap.set("n", "<C-h>", ":NvimTmuxNavigateLeft<CR>", { silent = true })
