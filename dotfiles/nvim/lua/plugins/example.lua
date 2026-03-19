@@ -150,6 +150,31 @@ return {
         layout_config = { prompt_position = "top" },
         sorting_strategy = "ascending",
         winblend = 0,
+        vimgrep_arguments = {
+          "rg",
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+          "--glob=!node_modules/**",
+          "--glob=!bazel-*/**",
+          "--glob=!changes/**",
+          "--glob=!vendor/**",
+          "--glob=!*.lock",
+          "--glob=!*.cache",
+        },
+        file_ignore_patterns = {
+          "node_modules/",
+          "bazel%-out/",
+          "bazel%-bin/",
+          "bazel%-lca/",
+          "bazel%-testlogs/",
+          "changes/",
+          "vendor/",
+          "%.aspect%-gazelle%.cache",
+        },
       },
     },
   },
@@ -163,6 +188,12 @@ return {
       },
       setup = {
         rust_analyzer = function(_, opts)
+          return true
+        end,
+        vtsls = function(_, opts)
+          return true
+        end,
+        ts_ls = function(_, opts)
           return true
         end,
       },
