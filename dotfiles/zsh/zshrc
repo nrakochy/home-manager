@@ -34,6 +34,9 @@ source_env() {
 autoload -Uz add-zsh-hook
 add-zsh-hook chpwd source_env
 
+# Starship prompt (must init before fzf to avoid ZLE widget recursion)
+eval "$(starship init zsh)"
+
 # fzf
 source <(fzf --zsh)
 
@@ -106,9 +109,6 @@ path=(
 if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
   . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 fi
-
-# Starship prompt
-eval "$(starship init zsh)"
 
 # Direnv
 eval "$(direnv hook zsh)"
