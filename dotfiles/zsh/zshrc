@@ -1,0 +1,86 @@
+export EDITOR=nvim
+export GOPATH="$HOME"
+
+source <(fzf --zsh)
+bindkey -v
+export KEYTIMEOUT=1
+setopt PROMPT_SUBST
+
+# oh-my-zsh
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="af-magic"
+plugins=(
+  git
+  kubectl
+  zsh-autosuggestions
+  dotenv
+  vi-mode
+)
+source $ZSH/oh-my-zsh.sh
+
+# Aliases
+alias vim="nvim"
+alias v="nvim"
+alias gc="git checkout"
+alias p="pnpm"
+alias mysudo='sudo -E env "PATH=$PATH"'
+alias kns="kubens"
+alias kctx="kubectx"
+
+# Functions
+ta() {
+  tmux switch-client -t $1
+}
+
+git-wip() {
+  branchName=$(git branch --show-current)
+  git add -A && git commit --amend --no-edit --no-verify && git fetch origin $branchName && git rebase origin/$branchName
+}
+
+git-wip-push() {
+  git-wip && git push origin $(git branch --show-current) -f
+}
+
+git-push() {
+  git push origin $(git branch --show-current) -f
+}
+
+quickToGif() {
+  input=$1
+  s=${input##*/}
+  base="${s%.*}"
+  temp=$base.mp4
+  ffmpeg -i $input $temp
+  ffmpeg -i $temp frame%04d.png
+  gifski -o $base.gif frame*.png
+  rm frame*.png
+  rm $temp
+  echo "Created $base.gif"
+}
+
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# PATH
+export PATH="$PATH:$(go env GOPATH)/bin"
+export PATH="$HOME/bin:$PATH"
+export PATH="$PATH:/usr/local/protobuf/bin"
+export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
+export PATH="$HOME/.local/share/nvim/mason/bin/:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+
+# Starship prompt
+eval "$(starship init zsh)"
+
+# Direnv
+eval "$(direnv hook zsh)"
+
+# Source work-specific config
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local

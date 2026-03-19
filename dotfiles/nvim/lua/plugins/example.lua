@@ -18,17 +18,19 @@ return {
     "mrcjkb/rustaceanvim",
     version = "^8",
     lazy = false,
-    opts = {
-      server = {
-        default_settings = {
-          ["rust-analyzer"] = {
-            check = {
-              command = "clippy",
+    init = function()
+      vim.g.rustaceanvim = {
+        server = {
+          default_settings = {
+            ["rust-analyzer"] = {
+              check = {
+                command = "clippy",
+              },
             },
           },
         },
-      },
-    },
+      }
+    end,
   },
   {
     "nvim-neotest/neotest",

@@ -22,6 +22,7 @@
               ./packages/mac.nix
               ./packages/common.nix
               ./packages/nvim.nix
+              ./packages/zsh.nix
             ];
 
             extraSpecialArgs = {
