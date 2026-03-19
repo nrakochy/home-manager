@@ -1,8 +1,6 @@
 export EDITOR=nvim
 export GOPATH="$HOME"
 
-source <(fzf --zsh)
-bindkey -v
 export KEYTIMEOUT=1
 setopt PROMPT_SUBST
 
@@ -17,6 +15,9 @@ plugins=(
   vi-mode
 )
 source $ZSH/oh-my-zsh.sh
+
+# fzf (after oh-my-zsh so keybindings aren't overwritten)
+source <(fzf --zsh)
 
 # Aliases
 alias vim="nvim"
@@ -58,18 +59,30 @@ quickToGif() {
   echo "Created $base.gif"
 }
 
-# NVM
+# Lazy-load NVM (saves ~200ms per shell startup)
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+nvm() {
+  unset -f nvm node npm npx
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+  nvm "$@"
+}
+node() { nvm --version > /dev/null 2>&1; node "$@"; }
+npm() { nvm --version > /dev/null 2>&1; npm "$@"; }
+npx() { nvm --version > /dev/null 2>&1; npx "$@"; }
 
-# PATH
-export PATH="$PATH:$(go env GOPATH)/bin"
-export PATH="$HOME/bin:$PATH"
-export PATH="$PATH:/usr/local/protobuf/bin"
-export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
-export PATH="$HOME/.local/share/nvim/mason/bin/:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
+# PATH (guarded against duplicate entries on nested shells)
+typeset -U path
+path=(
+  $GOPATH/bin
+  $HOME/bin
+  $HOME/.local/bin
+  $HOME/.local/share/nvim/mason/bin
+  $HOME/.cabal/bin
+  $HOME/.ghcup/bin
+  /usr/local/protobuf/bin
+  $path
+)
 
 # Nix
 if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
