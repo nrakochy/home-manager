@@ -110,7 +110,7 @@ return {
       {
         "<leader>sg",
         function()
-          require("telescope.builtin").live_grep({ debounce = 200 })
+          require("telescope.builtin").live_grep()
         end,
         { desc = "[S]earch by [G]rep" },
       },
@@ -144,6 +144,33 @@ return {
       },
     },
     opts = {
+      extensions = {
+        fzf = {
+          fuzzy = false,
+          override_generic_sorter = true,
+          override_file_sorter = true,
+          case_mode = "smart_case",
+        },
+      },
+      pickers = {
+        live_grep = {
+          debounce = 200,
+        },
+        find_files = {
+          debounce = 200,
+          find_command = {
+            "rg",
+            "--files",
+            "--smart-case",
+            "--glob=!node_modules/**",
+            "--glob=!bazel-*/**",
+            "--glob=!changes/**",
+            "--glob=!vendor/**",
+            "--glob=!*.lock",
+            "--glob=!*.cache",
+          },
+        },
+      },
       defaults = {
         layout_strategy = "horizontal",
         layout_config = { prompt_position = "top" },
@@ -179,17 +206,9 @@ return {
   },
   {
     "nvim-telescope/telescope-fzf-native.nvim",
+    build = "make",
+    dependencies = { "nvim-telescope/telescope.nvim" },
     config = function()
-      require("telescope").setup({
-        extensions = {
-          fzf = {
-            fuzzy = false,
-            override_generic_sorter = true,
-            override_file_sorter = true,
-            case_mode = "smart_case",
-          },
-        },
-      })
       require("telescope").load_extension("fzf")
     end,
   },
