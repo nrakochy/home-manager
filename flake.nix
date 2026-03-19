@@ -23,6 +23,7 @@
               ./packages/common.nix
               ./packages/nvim.nix
               ./packages/zsh.nix
+              ./packages/starship.nix
             ];
 
             extraSpecialArgs = {
