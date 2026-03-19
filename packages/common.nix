@@ -95,7 +95,7 @@
     go
     graphviz
     bun
-    cargo
+    rustup
     pipx
     python3
     nodePackages_latest.typescript-language-server
