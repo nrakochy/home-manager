@@ -18,6 +18,7 @@ $git_commit\
 $git_state\
 $git_metrics\
 $git_status\
+$kubernetes\
 $direnv\
 $env_var\
 $custom\
@@ -37,6 +38,10 @@ $sudo"""
 
 [fill]
 symbol = ' '
+
+[kubernetes]
+disabled = false
+format = '[$context( \($namespace\))](bold blue1) '
 
 [direnv]
 disabled = true

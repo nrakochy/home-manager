@@ -110,7 +110,60 @@ return {
       {
         "<leader>sg",
         function()
-          require("telescope.builtin").live_grep()
+          local pickers = require("telescope.pickers")
+          local finders = require("telescope.finders")
+          local conf = require("telescope.config").values
+          local make_entry = require("telescope.make_entry")
+          local sorters = require("telescope.sorters")
+
+          pickers
+            .new({}, {
+              debounce = 200,
+              prompt_title = "Live Grep (pattern | dir/path pattern)",
+              finder = finders.new_async_job({
+                command_generator = function(prompt)
+                  if not prompt or prompt == "" then
+                    return nil
+                  end
+
+                  local args = vim.deepcopy(conf.vimgrep_arguments)
+
+                  -- Check if the first token looks like a path (contains /)
+                  -- Format: "dir/path pattern" or just "pattern"
+                  local first_space = prompt:find(" ", 1, true)
+                  local pattern, search_dir
+
+                  if first_space then
+                    local maybe_dir = prompt:sub(1, first_space - 1)
+                    if maybe_dir:find("/", 1, true) then
+                      search_dir = maybe_dir
+                      pattern = prompt:sub(first_space + 1)
+                    else
+                      pattern = prompt
+                    end
+                  else
+                    pattern = prompt
+                  end
+
+                  if pattern == "" then
+                    return nil
+                  end
+
+                  table.insert(args, "-e")
+                  table.insert(args, pattern)
+
+                  if search_dir and search_dir ~= "" then
+                    table.insert(args, search_dir)
+                  end
+
+                  return args
+                end,
+                entry_maker = make_entry.gen_from_vimgrep({}),
+              }),
+              previewer = conf.grep_previewer({}),
+              sorter = sorters.empty(),
+            })
+            :find()
         end,
         { desc = "[S]earch by [G]rep" },
       },
@@ -159,19 +212,31 @@ return {
         find_files = {
           debounce = 200,
           find_command = {
-            "rg",
-            "--files",
-            "--smart-case",
-            "--glob=!node_modules/**",
-            "--glob=!bazel-*/**",
-            "--glob=!changes/**",
-            "--glob=!vendor/**",
-            "--glob=!*.lock",
-            "--glob=!*.cache",
+            "fd",
+            "--type",
+            "f",
+            "--hidden",
+            "--exclude",
+            "node_modules",
+            "--exclude",
+            "bazel-*",
+            "--exclude",
+            "changes",
+            "--exclude",
+            "vendor",
+            "--exclude",
+            "*.lock",
+            "--exclude",
+            "*.cache",
+            "--exclude",
+            ".git",
           },
         },
       },
       defaults = {
+        cache_picker = {
+          num_pickers = 10,
+        },
         layout_strategy = "horizontal",
         layout_config = { prompt_position = "top" },
         sorting_strategy = "ascending",
@@ -241,7 +306,27 @@ return {
     keys = {
       { "<leader>Fi", "<cmd>TSToolsAddMissingImports<CR>", desc = "Add missing imports" },
     },
-    opts = {},
+    config = function()
+      -- Derive tsserver lib path from the tsc binary that Nix puts on $PATH.
+      -- In a Nix profile: bin/tsc sits next to lib/node_modules/typescript/lib/tsserver.js
+      local tsc = vim.fn.exepath("tsc")
+      if tsc == "" then
+        vim.notify("typescript-tools: tsc not found on PATH", vim.log.levels.WARN)
+        return
+      end
+      local bin_dir = vim.fn.fnamemodify(tsc, ":h")
+      local prefix = vim.fn.fnamemodify(bin_dir, ":h")
+      local tsserver_path = prefix .. "/lib/node_modules/typescript/lib/tsserver.js"
+      if vim.fn.filereadable(tsserver_path) == 0 then
+        vim.notify("typescript-tools: not found at " .. tsserver_path, vim.log.levels.WARN)
+        return
+      end
+      require("typescript-tools").setup({
+        settings = {
+          tsserver_path = tsserver_path,
+        },
+      })
+    end,
   },
 
   -- add more treesitter parsers

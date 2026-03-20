@@ -50,6 +50,7 @@
     fzf
     git
     gh
+    fd
     ripgrep
     tree
     unzip
@@ -98,6 +99,7 @@
     rustup
     pipx
     python3
+    nodePackages_latest.typescript
     nodePackages_latest.typescript-language-server
     vscode-langservers-extracted
     emmet-language-server
