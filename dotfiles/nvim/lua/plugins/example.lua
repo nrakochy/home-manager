@@ -306,27 +306,7 @@ return {
     keys = {
       { "<leader>Fi", "<cmd>TSToolsAddMissingImports<CR>", desc = "Add missing imports" },
     },
-    config = function()
-      -- Derive tsserver lib path from the tsc binary that Nix puts on $PATH.
-      -- In a Nix profile: bin/tsc sits next to lib/node_modules/typescript/lib/tsserver.js
-      local tsc = vim.fn.exepath("tsc")
-      if tsc == "" then
-        vim.notify("typescript-tools: tsc not found on PATH", vim.log.levels.WARN)
-        return
-      end
-      local bin_dir = vim.fn.fnamemodify(tsc, ":h")
-      local prefix = vim.fn.fnamemodify(bin_dir, ":h")
-      local tsserver_path = prefix .. "/lib/node_modules/typescript/lib/tsserver.js"
-      if vim.fn.filereadable(tsserver_path) == 0 then
-        vim.notify("typescript-tools: not found at " .. tsserver_path, vim.log.levels.WARN)
-        return
-      end
-      require("typescript-tools").setup({
-        settings = {
-          tsserver_path = tsserver_path,
-        },
-      })
-    end,
+    opts = {},
   },
 
   -- add more treesitter parsers
