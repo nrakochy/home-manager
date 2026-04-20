@@ -10,7 +10,8 @@
 
     # AI
     opencode
-    dolt
+    claude-code
+    claude-monitor
 
     # GUI Applications
     vscode
@@ -90,10 +91,13 @@
     tilt # hot-reloading
     stern # multi-pod color + aggregator
 
+    #go
+    go
+    gopls
+    pprof
+
     # Lang Specific
     stylua
-    gopls
-    go
     graphviz
     bun
     rustup
