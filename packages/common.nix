@@ -106,8 +106,8 @@
     rustup
     pipx
     python3
-    nodePackages_latest.typescript
-    nodePackages_latest.typescript-language-server
+    typescript
+    typescript-language-server
     vscode-langservers-extracted
     emmet-language-server
     tailwindcss-language-server
