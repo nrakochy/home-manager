@@ -46,12 +46,15 @@
 
     # File Ops Tools
     bat
+    ## grcp
+    buf
     duf
     entr
     fzf
     git
     gh
     fd
+    poppler
     ripgrep
     tree
     unzip

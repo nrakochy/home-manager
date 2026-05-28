@@ -22,6 +22,7 @@
               ./packages/mac.nix
               ./packages/common.nix
               ./packages/nvim.nix
+              ./packages/tmux.nix
               ./packages/zsh.nix
               ./packages/starship.nix
             ];
