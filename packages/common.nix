@@ -10,11 +10,10 @@
 
     # AI
     opencode
-    claude-code
-    claude-monitor
+    #claude-code
+    #claude-monitor
 
     # GUI Applications
-    vscode
     obsidian
 
     # containers
@@ -87,6 +86,8 @@
     kind
     kubectl
     kubectx # kubectl ns switcheroo
+    kubeseal
+    eksctl # amazon 
     kube-linter
     kube-score
     popeye 
@@ -99,12 +100,16 @@
     gopls
     pprof
 
+
     # Lang Specific
     stylua
     graphviz
     bun
     rustup
-    pipx
+    jdk17
+    maven
+    jfrog-cli
+    azure-cli
     python3
     typescript
     typescript-language-server
@@ -112,6 +117,7 @@
     emmet-language-server
     tailwindcss-language-server
     tsx
+    
 
     # Nix-Related
     nix-prefetch-git

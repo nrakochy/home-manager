@@ -5,6 +5,7 @@
     stats
     raycast
     tableplus
+    sl
   ];
 }
 

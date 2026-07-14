@@ -97,8 +97,12 @@ npm() { nvm --version > /dev/null 2>&1; npm "$@"; }
 npx() { nvm --version > /dev/null 2>&1; npx "$@"; }
 
 # PATH (guarded against duplicate entries on nested shells)
+# Note: macOS /etc/zprofile runs path_helper, which puts /usr/bin ahead of
+# ~/.nix-profile/bin. Prepend the nix profile here so nix-installed tools
+# (e.g. jdk17) win over Apple's stubs like /usr/bin/java.
 typeset -U path
 path=(
+  $HOME/.nix-profile/bin
   $GOPATH/bin
   $HOME/bin
   $HOME/.local/bin
@@ -108,6 +112,12 @@ path=(
   /usr/local/protobuf/bin
   $path
 )
+
+# JAVA_HOME for Gradle/Maven (nix jdk17). Resolve the real JDK home by
+# following the nix-profile java symlink up two levels (bin/java -> home).
+if command -v java >/dev/null 2>&1; then
+  export JAVA_HOME="$(dirname "$(dirname "$(readlink -f "$(command -v java)")")")"
+fi
 
 # Nix
 if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
