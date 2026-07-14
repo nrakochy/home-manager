@@ -106,6 +106,7 @@ path=(
   $GOPATH/bin
   $HOME/bin
   $HOME/.local/bin
+  $HOME/.cargo/bin
   $HOME/.local/share/nvim/mason/bin
   $HOME/.cabal/bin
   $HOME/.ghcup/bin
