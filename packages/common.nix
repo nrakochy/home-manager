@@ -22,6 +22,10 @@
     docker
     docker-compose
 
+    # release
+    vhs
+    ffmpeg
+
     #ci
     circleci-cli
 
